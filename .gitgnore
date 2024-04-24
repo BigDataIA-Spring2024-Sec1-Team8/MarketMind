@@ -1,6 +1,6 @@
 __pycache__
-Frontend/__pycache__
-Backend/__pycache__
+Web-Service/Frontend/__pycache__
+Web-Service/Backend/__pycache__
 .env
 .locks
 models--openai--clip-vit-base-patch32/
