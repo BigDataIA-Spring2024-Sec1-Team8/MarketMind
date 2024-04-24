@@ -3,3 +3,4 @@ __pycache__
 .locks
 models--openai--clip-vit-base-patch32/
 .pytest_cache
+Web-Service/chat/__pycache__
