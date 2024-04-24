@@ -1,0 +1,7 @@
+__pycache__
+Frontend/__pycache__
+Backend/__pycache__
+.env
+.locks
+models--openai--clip-vit-base-patch32/
+.pytest_cache
