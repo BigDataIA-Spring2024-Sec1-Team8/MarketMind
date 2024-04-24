@@ -23,8 +23,6 @@ x-airflow-common:
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
-    OPENAI_KEY: ''
-    PINECONE_KEY: 'cc93780d-3526-4189-89d5-3cbafb9fb92a'
   env_file:
     - .env
   volumes:
