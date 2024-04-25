@@ -32,6 +32,10 @@ The MarketMind platform creates a seamless interaction flow, beginning with user
 
 The Data Processing Layer for the MarketMind project ingests raw e-commerce data, meticulously cleansing and condensing product information and reviews from Amazon's vast datasets. Relevant details are summarized and embedded into a vector space, making them amenable for advanced analytics. These processed assets, including both text and images, are then stored in Snowflake, a cloud data warehouse that supports the platform's scalable, data-driven functionalities. This streamlined pipeline ensures the integrity and utility of data that feeds into the MarketMind user experience.
 
+## Project Structure
+
+<img width="227" alt="Screenshot 2024-04-25 at 12 57 53 PM" src="https://github.com/BigDataIA-Spring2024-Sec1-Team8/MarketMind/assets/114782541/c5d3f2f3-4b1b-44eb-83ef-cfbde33762ac">
+
 ## Contributions
 -Sai Durga Mahesh Bandaru - 33.3%
 
