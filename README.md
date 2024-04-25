@@ -38,10 +38,10 @@ The Data Processing Layer for the MarketMind project ingests raw e-commerce data
 <img width="227" alt="Screenshot 2024-04-25 at 12 57 53 PM" src="https://github.com/BigDataIA-Spring2024-Sec1-Team8/MarketMind/assets/114782541/c5d3f2f3-4b1b-44eb-83ef-cfbde33762ac">
 
 ## Contributions
--Sai Durga Mahesh Bandaru - 33.3%
-
--Sri Poojitha Mandali - 33.3%
-
--Shivani Gulgani - 33.3%
+| Name                     | Share  |
+|--------------------------|--------|
+| Sai Durga Mahesh Bandaru | 33.3%  |
+| Sri Poojitha Mandali     | 33.3%  |
+| Shivani Gulgani          | 33.3%  |
 
 WE ATTEST THAT WE HAVEN’T USED ANY OTHER STUDENTS’ WORK IN OUR ASSIGNMENT AND ABIDE BY THE POLICIES LISTED IN THE STUDENT HANDBOOK
