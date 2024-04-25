@@ -13,7 +13,7 @@ MarketMind is an advanced analytics platform designed to transform e-commerce wi
 ![Apache Airflow](https://img.shields.io/badge/Apache_Airflow-00A7E1?style=for-the-badge&logo=apache-airflow&logoColor=white)
 ![Pinecone](https://img.shields.io/badge/Pinecone-6558F5?style=for-the-badge&logo=pinecone&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
-[![Gemini](https://img.shields.io/badge/Gemini-Technology-purple?style=for-the-badge)]
+![Gemini](https://img.shields.io/badge/Gemini-purple?style=for-the-badge)
 ![Docker](https://img.shields.io/badge/Docker-0db7ed?style=for-the-badge&logo=docker&logoColor=white)
 ![Amazon S3](https://img.shields.io/badge/Amazon_S3-F7CA18?style=for-the-badge&logo=amazon-s3&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
