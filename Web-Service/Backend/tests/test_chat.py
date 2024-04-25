@@ -1,0 +1,59 @@
+from fastapi.testclient import TestClient
+import sys
+import os
+import sys
+import pprint
+pprint.pprint(sys.path)
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+from main import app
+
+
+client = TestClient(app)
+
+
+def test_greeting():
+    payload = {
+        "image": "",
+        "user_id": 1,
+        "messages": [
+            {
+                "role": "user",
+                "content": "hi"
+            }
+        ],
+        "products": {}
+    }
+
+    response = client.post("/send/",  json=payload)
+    print(response)
+    assert 'Hello!' in response.json()['response']['bot']
+
+
+def test_product_search():
+    payload = {
+        "image": "",
+        "user_id": 1,
+        "messages": [
+            {
+                "role": "user",
+                "content": "blue jeans"
+            }
+        ],
+        "products": {}
+    }
+    response = client.post("/send/",  json=payload)
+    assert 'blue jeans' in response.json()['response']['products'].keys()
+    products = response.json()['response']['products']
+    for i in products:
+        for product in products[i]:
+            assert len(product) == 5
+            assert 'title' in product
+            assert 'asin' in product
+            assert 'summary' in product
+    queries = response.json()['response']['queries']
+    assert len(queries) == 1
+
