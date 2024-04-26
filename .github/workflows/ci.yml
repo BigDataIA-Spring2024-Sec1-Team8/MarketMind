@@ -45,3 +45,24 @@ jobs:
         openai_key:  ${{ secrets.openai_key }} 
         JWT_SECRET:  ${{ secrets.JWT_SECRET }} 
       
+  deploy:
+    name: Deploy
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install SSH
+      run: sudo apt-get install openssh-client -y
+
+    - name: Copy SSH private key
+      run: echo "${{ secrets.EC2PRIVATE }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+
+    - name: SSH into EC2 instance
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2USER }}
+        key: ${{ secrets.EC2PRIVATE }}
+        script: |
+          cd final-web-service-private
+          git pull
