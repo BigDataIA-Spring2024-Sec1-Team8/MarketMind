@@ -68,24 +68,27 @@ You can download the dataset from data source in addition to existing one https:
 
 Run Docker compose build for initializing and running the containers for Airflow and Web App.
 
+```
 cd Web-Service
 
 docker-compose build
+```
 
 Run Docker compose for initializing and running the containers for Airflow, Frontend and Backend.
 
+```
 docker-compose up
+```
 
-
-cd Web-Service
 Now the application is up and running. Now navigate to below link to check the application in the web browser.
 
 0.0.0.0:8501
 
+```
 cd ETL
 docker-compose build
 docker-compose up
-
+```
 Also, once all the Airflow containers are healthy then navigate to the port 8080 i.e. 0.0.0.0:8080
 
 ## Project Structure
