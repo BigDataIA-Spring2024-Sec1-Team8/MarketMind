@@ -18,3 +18,4 @@ sqlalchemy
 snowflake-sqlalchemy
 passlib
 python-jose[cryptography]
+pytest
