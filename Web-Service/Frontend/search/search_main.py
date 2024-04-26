@@ -5,19 +5,12 @@ import base64
 from uuid import uuid4
 import json
 from upload_to_s3 import upload_to_s3
-from chat.message.images import image_interface
+from search.message.images import image_interface
 from gtts import gTTS
 from io import BytesIO
-# Function to prepare messages
-def prepare_messages(new_message):
-    messages = []
-    if 'chat_history' in st.session_state:
-        messages = st.session_state.chat_history[-4:]
-    messages.append({"role": "user", "content": new_message})
-    return messages
 
 # Function to send a message
-def send_message(messages, products, uploaded_file):
+def search_query(new_message, uploaded_file):
     url = "http://chat-be-service:8000/send/"
     s3_uri = ""
     if uploaded_file:
@@ -26,16 +19,19 @@ def send_message(messages, products, uploaded_file):
         s3_uri = upload_to_s3(uploaded_file.name, uploaded_file.name)
     json_req = {
         "user_id": st.session_state.get('user_id', 1),
-        "messages": messages,
-        "products": products,
+        "message": new_message,
         "image": f"{s3_uri}" if s3_uri != "" else s3_uri
-    }
-    
+    }    
     response = requests.post(url, json=json_req)
-    if response.status_code == 200:
-        return response.json()["response"]
-    else:
-        st.write(f"Please try again later")
+    try:
+        if response.status_code == 200:
+            # st.write(response.json()["response"])
+            return response.json()["response"] if "response" in response.json() else None
+        else:
+            st.write(f"Please try again later")
+    except Exception as e:
+        print(e)
+        return None
 
 # Function to add a product to the wishlist
 def add_wishlist(product_id):
@@ -45,7 +41,7 @@ def add_wishlist(product_id):
         "product_id": product_id,
     }
     response = requests.post(url, json=json_req)
-    st.write("success")
+    st.write(f"{product_id} added to wishlisht")
 
 # Function to show more products
 def show_more(product_name, query, category):
@@ -55,17 +51,15 @@ def show_more(product_name, query, category):
         "category": category
     }
     response = requests.post(url, json=json_req)
-    for message in st.session_state.chat_history:
+    for message in st.session_state.search_results:
         if 'products' in  message and product_name in message['products']:
             message['products'][product_name].extend(response.json()['response']['products'])
 # Main chat function
-def chat():
-    if 'chat_history' not in st.session_state:
-        st.session_state.chat_history = []
-    if 'last_products' not in st.session_state:
-        st.session_state.last_products = {}
+def search():
+    if 'search_results' not in st.session_state:
+        st.session_state.search_results = []
 
-    st.title("Chatbot Interface")
+    st.title("Search...")
 
     uploaded_file = st.file_uploader("", type=["jpg", "png", "jpeg"])
     col2, col3 = st.columns([7, 1])
@@ -82,35 +76,24 @@ def chat():
             st.warning("Please enter a message.")
         else:
             try:
-                bot_response = send_message(prepare_messages(user_input), st.session_state.last_products, uploaded_file)
+                response = search_query(user_input,  uploaded_file)
             except Exception as e:
                 st.write(str(e))
-            st.session_state.chat_history.append({"role": "user", "content": user_input})
-            st.session_state.chat_history.append({"role": "bot", "content": bot_response["bot"], "products": bot_response["products"], "queries": bot_response["queries"]})
-            user_input = ''
+            st.session_state.search_results = []
+            if response:
+            # st.session_state.chat_history.append({"role": "user", "content": user_input})
+                st.session_state.search_results.append({"role": "bot", "content": response["bot"], "products": response["products"], "queries": response["queries"]})
+                user_input = ''
 
     # Display chat history with product card layout
-    for entry in st.session_state.chat_history[::-1]:
-        if entry["role"] == "user":
+    for idx, entry in enumerate(st.session_state.search_results[:3]):
             st.markdown(
-                f"<div style='display: flex; justify-content: flex-end; align-items: center; padding: 10px; border-radius: 10px; margin: 10px 0; background-color: #cce5ff;'>"
-                f"{entry['content']}"
-                f"<img src='https://api.dicebear.com/8.x/personas/svg?seed=Molly' style='width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;' />"  # User avatar
-                f"</div>",
-                unsafe_allow_html=True
-            )
-        elif entry["role"] == "bot":
-            st.markdown(
-                f"<div style='display: flex; justify-content: flex-start; align-items: center; padding: 10px; border-radius: 10px; margin: 10px 0; background-color: #f8d7da;'>"
-                f"<img src='https://api.dicebear.com/8.x/bottts/svg?seed=Lucky' style='width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;' />"  # Bot avatar
-                f"{entry['content']}"
-                f"</div>",
+                f"<div style='text-align: left; background-color: #f8d7da; padding: 10px; border-radius: 10px; margin: 10px 0;'>{entry['content']}</div>",
                 unsafe_allow_html=True
             )
             if entry["products"]:
                 for product_name in entry["products"]:
                     st.markdown(f"<h2>{product_name}</h2>", unsafe_allow_html=True)
-
                     # Display products as cards with consistent image size
                     for product in entry["products"][product_name]:
                         image_html = image_interface(product['imageURLHighRes'])
@@ -129,14 +112,15 @@ def chat():
 
                         # Wishlist button
                         button_key = f"wishlist_{product['asin']}_{uuid4()}"
-                        sound_file = BytesIO()
-                        tts = gTTS(product['summary'], lang=    'en')
-                        tts.write_to_fp(sound_file)
-                        st.audio(sound_file)
+                        if idx<1:
+                            sound_file = BytesIO()
+                            tts = gTTS(product['summary'], lang=    'en')
+                            tts.write_to_fp(sound_file)
+                            st.audio(sound_file)
                         st.button("❤️ Wishlist", key=button_key, on_click=lambda x: add_wishlist(x), args=[product['asin']])
 
                     # Show More button
-                    if product_name in entry["queries"]:
+                    if product_name in entry["queries"] and len(entry["products"][product_name]) > 0:
                         product_cat = entry["products"][product_name][0].get("category", None)
                         show_more_button = f"show_more_{uuid4()}"
                         st.button(
@@ -147,4 +131,4 @@ def chat():
                             use_container_width=True,
                         )
         
-        st.markdown("---")
+            st.markdown("---")

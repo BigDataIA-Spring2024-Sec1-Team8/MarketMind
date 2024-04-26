@@ -15,6 +15,7 @@ def send_recommendations(user_id):
     curate query to retrieve relevant products under each category:
     ['{user_gender}_clothing', '{user_gender}_watches', '{user_gender}_shoes']
     """+"""
+    Don't give none for any category.
     The format of response should be:
     {
         "category1": "query",

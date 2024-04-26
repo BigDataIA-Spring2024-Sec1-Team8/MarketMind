@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import ast
-from chat.message.images import image_interface
+from search.message.images import image_interface
 
 # Function to generate consistent-sized images in a horizontal scroll
 def image_interface(image_urls):
@@ -22,7 +22,7 @@ def search_image():
         files = {'file': uploaded_file.getvalue()}
         response = requests.post('http://chat-be-service:8000/search-image/', files=files)
         products = response.json()['response'] if 'response' in response.json() else []
-
+        st.write(response.json()['response'])
         if response.status_code == 200:
             # Display each product in a card layout
             for product in products:

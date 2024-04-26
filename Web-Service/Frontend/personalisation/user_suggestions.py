@@ -1,17 +1,19 @@
 import requests
 import streamlit as st
-from chat.message.images import image_interface
+from search.message.images import image_interface
 
 
 # Function to get user activities from Snowflake
-def get_user_activities(user_id):
+def get_user_activities():
     url = "http://chat-be-service:8000/get-activities/"
     json_req = {
         "userid": st.session_state.get('user_id', 1),
       }
     response = requests.get(url, params=json_req)
-    return response.json()["response"]
-
+    try:
+        return response.json()["response"] if "response" in response.json() else []
+    except:
+        return []
 
 # Function to get product suggestions
 def get_suggestions():
@@ -21,11 +23,14 @@ def get_suggestions():
         "user_id": st.session_state.get('user_id', 1),
     }
     response = requests.get(url, params=json_req)
-    if response.status_code == 200:
-        return response.json()["response"]
-    else:
-        st.error(f"Request failed with status code: {response}")
-        return None
+    try:
+        if response.status_code == 200:
+            return response.json()["response"] if "response" in response.json() else None
+        else:
+            st.error(f"Request failed with status code: {response}")
+            return {}
+    except:
+        return {}
 
 # Function to display suggested products in card format
 def suggested_products():
@@ -34,10 +39,8 @@ def suggested_products():
     if response is None:
         return
     
-    user_id = st.session_state.get('user_id', 1)
-
     # Retrieve user activities
-    user_activities = get_user_activities(user_id)
+    user_activities = get_user_activities()
 
     if user_activities:
         # Display user activities in a rectangular box with a pink shade
@@ -68,6 +71,9 @@ def suggested_products():
     # Add a one-line gap between the category title and product display
     st.markdown(" ")  # Creates the desired space
 
+    refresh = st.button("Refresh Recommendations")
+    if refresh:
+        response = get_suggestions()
     # Iterate through product categories
     for cat in response.keys():
         # Add a bubble background with lavender shade, centered, and smaller
