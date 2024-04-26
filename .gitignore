@@ -6,7 +6,8 @@ __pycache__/
 
 # C extensions
 *.so
-
+models--openai--clip-vit-base-patch32
+.locks
 # Distribution / packaging
 .Python
 build/
