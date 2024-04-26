@@ -112,9 +112,9 @@ def search():
 
                         # Wishlist button
                         button_key = f"wishlist_{product['asin']}_{uuid4()}"
-                        if idx<1:
+                        if idx<1 and len(product['summary'])> 0 :
                             sound_file = BytesIO()
-                            tts = gTTS(product['summary'], lang=    'en')
+                            tts = gTTS(product['summary'], lang= 'en')
                             tts.write_to_fp(sound_file)
                             st.audio(sound_file)
                         st.button("❤️ Wishlist", key=button_key, on_click=lambda x: add_wishlist(x), args=[product['asin']])

@@ -4,8 +4,8 @@
 MarketMind is an advanced analytics platform designed to transform e-commerce with real-time data insights, personalized product recommendations, and consumer sentiment analysis. Powered by AI and machine learning, MarketMind offers a conversational interface for intuitive user queries, allowing businesses to understand market trends and customer behavior better. The platform's cloud-based structure ensures scalability and reliability, enabling businesses of all sizes to access powerful big data tools. By integrating user chat histories and analyzing customer reviews, MarketMind delivers a tailored shopping experience and actionable insights, empowering businesses to make informed decisions and enhance customer satisfaction.
 
 ## Project Resources
-[![Google Codelabs](https://img.shields.io/badge/-Google%20Codelabs-blue?style=for-the-badge)](https://codelabs-preview.appspot.com/?file_id=1pRm59ElUkxoqgvT62tF9CEygV7fJEHx4JsTQossEerM#0)
-[![Demo Video](https://img.shields.io/badge/-Demo%20Video-red?style=for-the-badge)](xxxx)
+[![Google Codelabs](https://img.shields.io/badge/-Google%20Codelabs-blue?style=for-the-badge)](https://codelabs-preview.appspot.com/?file_id=1jgCXONoiZ2SUPDW-pyuGT_dZhfNW3Q1h9VHunhrVhK4#0)
+[![Demo Video](https://img.shields.io/badge/-Demo%20Video-red?style=for-the-badge)](https://www.youtube.com/watch?v=WFkK3tz0280)
 [![Application](https://img.shields.io/badge/-Application-yellow?style=for-the-badge)](http://52.14.6.11:8501/)
 
 ## Tech Stack
@@ -33,6 +33,63 @@ The MarketMind platform creates a seamless interaction flow, beginning with user
 ![image](https://github.com/BigDataIA-Spring2024-Sec1-Team8/final-project-proposal/assets/114782541/350ef92f-a813-4d72-a92b-c49c75034696)
 
 The Data Processing Layer for the MarketMind project ingests raw e-commerce data, meticulously cleansing and condensing product information and reviews from Amazon's vast datasets. Relevant details are summarized and embedded into a vector space, making them amenable for advanced analytics. These processed assets, including both text and images, are then stored in Snowflake, a cloud data warehouse that supports the platform's scalable, data-driven functionalities. This streamlined pipeline ensures the integrity and utility of data that feeds into the MarketMind user experience.
+
+### Run the application
+
+Clone the project repository:
+https://github.com/BigDataIA-Spring2024-Sec1-Team8/MarketMind.git
+
+Navigate to the project directory:
+
+cd MarketMind
+
+Create a .env file and add the following environment variables:
+```
+SNOWFLAKE_USER=xxxx
+SNOWFLAKE_PASSWORD=xxxx
+SNOWFLAKE_ACCOUNT=xxxx
+SNOWFLAKE_WAREHOUSE=xxxx
+SNOWFLAKE_SCHEMA=xxxx
+SNOWFLAKE_ROLE=xxxx
+SNOWFLAKE_DATABASE=xxxx
+sasl_username=xxxx
+sasl_password=xxxx
+bootstrap_servers=xxxx
+AWS_ACCESS_KEY_ID = xxxx
+AWS_SECRET_ACCESS_KEY = xxxx
+pinecone_key = xxxx
+openai_key = xxxx
+gemini_key=xxxx
+JWT_SECRET=xxxx
+```
+
+You can download the dataset from data source in addition to existing one https://jmcauley.ucsd.edu/data/amazon_v2/index.html, please place the downloaded file in the resources folder .
+/Web-Service/Backend/resources
+
+Run Docker compose build for initializing and running the containers for Airflow and Web App.
+
+```
+cd Web-Service
+
+docker-compose build
+```
+
+Run Docker compose for initializing and running the containers for Airflow, Frontend and Backend.
+
+```
+docker-compose up
+```
+
+Now the application is up and running. Now navigate to below link to check the application in the web browser.
+
+0.0.0.0:8501
+
+```
+cd ETL
+docker-compose build
+docker-compose up
+```
+Also, once all the Airflow containers are healthy then navigate to the port 8080 i.e. 0.0.0.0:8080
 
 ## Project Structure
 
