@@ -3,47 +3,47 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - test-branch
+      - main
 
 jobs:
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
+  test:
+    name: Test
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v2
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-  #   - name: Set up Python
-  #     uses: actions/setup-python@v2
-  #     with:
-  #       python-version: 3.8
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
 
-  #   - name: Change directory to Web-Service/Backend
-  #     run: cd Web-Service/Backend
+    - name: Change directory to Web-Service/Backend
+      run: cd Web-Service/Backend
 
-  #   - name: Install dependencies
-  #     working-directory: Web-Service/Backend
-  #     run: |
-  #       python -m pip install --upgrade pip
-  #       pip install -r requirements.txt
+    - name: Install dependencies
+      working-directory: Web-Service/Backend
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-  #   - name: Run tests
-  #     run: |
-  #       python -m pytest
-  #     env:
-  #       SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }} 
-  #       SNOWFLAKE_PASSWORD:  ${{ secrets.SNOWFLAKE_PASSWORD }} 
-  #       SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }} 
-  #       SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }} 
-  #       SNOWFLAKE_DATABASE:  ${{ secrets.SNOWFLAKE_DATABASE }} 
-  #       SNOWFLAKE_ROLE:  ${{ secrets.SNOWFLAKE_ROLE }} 
-  #       SNOWFLAKE_SCHEMA:  ${{ secrets.SNOWFLAKE_SCHEMA }} 
-  #       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
-  #       AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-  #       pinecone_key: ${{ secrets.pinecone_key }} 
-  #       openai_key:  ${{ secrets.openai_key }} 
-  #       JWT_SECRET:  ${{ secrets.JWT_SECRET }} 
+    - name: Run tests
+      run: |
+        python -m pytest
+      env:
+        SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }} 
+        SNOWFLAKE_PASSWORD:  ${{ secrets.SNOWFLAKE_PASSWORD }} 
+        SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }} 
+        SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }} 
+        SNOWFLAKE_DATABASE:  ${{ secrets.SNOWFLAKE_DATABASE }} 
+        SNOWFLAKE_ROLE:  ${{ secrets.SNOWFLAKE_ROLE }} 
+        SNOWFLAKE_SCHEMA:  ${{ secrets.SNOWFLAKE_SCHEMA }} 
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+        pinecone_key: ${{ secrets.pinecone_key }} 
+        openai_key:  ${{ secrets.openai_key }} 
+        JWT_SECRET:  ${{ secrets.JWT_SECRET }} 
       
   deploy:
     name: Deploy
