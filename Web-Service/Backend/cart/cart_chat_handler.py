@@ -1,7 +1,18 @@
 from helpers.helper_functions import is_greeting
 from prompt.prompt_handler import create_user_query_answering_cart
-from genai.genai_handler import call_gemini_api
+from genai.genai_handler import call_gemini_api,call_openai_api
 import json
+from cart.user_cart_handler import get_review_summaries
+def condense_messages(messages):
+    collective_chat = "User's messages:"
+    for msg in messages:
+        if msg.role == 'user':
+            collective_chat += f"User: {msg.content}\n"
+    prompt = collective_chat + """
+    Verify above user's messages in order, If he is refering to some product or products from previous messages, create a standalone query.
+    Keep the query short and informative
+    """
+    return call_openai_api(prompt)
 def answer_questions_for_cart(cartReq):
     messages = cartReq.messages
     ref_products = cartReq.products
@@ -14,13 +25,19 @@ def answer_questions_for_cart(cartReq):
         response['products'] = []
     else:
         product_details = ""
+        asins = list(map(lambda x: x.asin, ref_products))
+        summaries = get_review_summaries(asins)
+        print(summaries,"finally")
         for product in ref_products:
-            product_details+=f"title: {product.title}"
-            product_details+= f"description: {product.summary}"
-            product_details+= f"asin: {product.asin}"
-        prompt = create_user_query_answering_cart(message=messages[-1].content, product_info=product_details)
-        print(prompt)
-        response_message = call_gemini_api(prompt)
+            product_details+=f"\ntitle: {product.title}"
+            product_details+= f"\ndescription: {product.summary}"
+            product_details+= f"\nasin: {product.asin}"
+            product_details+= f"\nReviews: {summaries[product.asin] if product.asin in summaries else '' }"
+        final_msg = messages[-1].content
+        if len(messages) > 1:
+            final_msg = condense_messages(messages=messages)
+        prompt = create_user_query_answering_cart(message=final_msg, product_info=product_details)
+        response_message = call_openai_api(prompt)
         try:
             response = {}
             start_index = response_message.index('{')

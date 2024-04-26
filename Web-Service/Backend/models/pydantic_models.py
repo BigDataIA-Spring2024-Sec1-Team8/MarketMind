@@ -16,8 +16,7 @@ class CartBotReq(BaseModel):
 class Req(BaseModel):
     image: str
     user_id: int
-    messages: List[Message]
-    products: Dict[str, List[Product]]
+    message: str
 class cartinsreq(BaseModel):
     userid: str
     product_id: str

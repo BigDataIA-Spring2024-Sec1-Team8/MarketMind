@@ -45,7 +45,7 @@ def get_product_data(products) -> List[dict]:
                 'title': title,
                 'imageURLHighRes': imageURLHighRes,
                 'category': category,
-                'summary': summaries[asin][0] if len(summaries[asin])>0 else summaries[asin][0]
+                'summary': summaries[asin][0] if asin in summaries and len(summaries[asin])>0 else ""
             })
         else:
             product.update({

@@ -61,13 +61,13 @@ def handle_image(file_path):
     return response.choices[0].message.content
 def retrieve_products_by_image(file):
     embedding = generate_image_embedding(file, '')
-    # response = handle_image(file)
+    response = handle_image(file)
+    print(embedding, file)
     try:
-    #    start_index = response.index('{')
-    #    end_index = response.rindex('}')
-    #    response = json.loads(response[start_index:end_index+1])
-    #    category = response['category']
-       category="women_clothing"
+       start_index = response.index('{')
+       end_index = response.rindex('}')
+       response = json.loads(response[start_index:end_index+1])
+       category = response['category']
        print(category, embedding)
        products = retrieve_products(embedding.tolist()[0], category = category)
        print(products)
