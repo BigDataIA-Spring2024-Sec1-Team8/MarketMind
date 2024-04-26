@@ -33,7 +33,7 @@ class UserSignup(BaseModel):
     username: str
     password: str
     gender: str
-    activities: list[str]
+    activities: List[str]
 
 
 class UserLogin(BaseModel):

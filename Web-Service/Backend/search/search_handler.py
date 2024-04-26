@@ -4,7 +4,7 @@ from helpers.helper_functions import is_greeting
 from search.search_helper_functions import pick_products
 from snowflake.snowflake_wrapper import insert_user_searches, get_product_data
 from genai.embedding_handler import retrieve_products
-from genai.genai_handler import call_gemini_api,call_openai_api
+from genai.genai_handler import call_openai_api
 from collections import defaultdict
 from snowflake.snowflake_wrapper import retrieve_user_gender
 def search_user_query(req):

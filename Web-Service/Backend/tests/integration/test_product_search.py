@@ -4,46 +4,18 @@ import os
 import sys
 import pprint
 pprint.pprint(sys.path)
-from dotenv import load_dotenv
 import os
-
-# Load environment variables from .env file
-load_dotenv()
 from main import app
 
 
 client = TestClient(app)
 
 
-def test_greeting():
-    payload = {
-        "image": "",
-        "user_id": 1,
-        "messages": [
-            {
-                "role": "user",
-                "content": "hi"
-            }
-        ],
-        "products": {}
-    }
-
-    response = client.post("/send/",  json=payload)
-    print(response)
-    assert 'Hello!' in response.json()['response']['bot']
-
-
 def test_product_search():
     payload = {
         "image": "",
         "user_id": 1,
-        "messages": [
-            {
-                "role": "user",
-                "content": "blue jeans"
-            }
-        ],
-        "products": {}
+        "message": "blue jeans",
     }
     response = client.post("/send/",  json=payload)
     assert 'blue jeans' in response.json()['response']['products'].keys()

@@ -1,4 +1,4 @@
-from genai.genai_handler import call_gemini_api, call_openai_api
+from genai.genai_handler import  call_openai_api
 import re
 import json
 

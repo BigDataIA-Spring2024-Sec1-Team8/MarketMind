@@ -1,9 +1,30 @@
-from cart.user_cart_handler import get_user_cart_products
-from models.pydantic_models import Message, Product,CartBotReq
+from models.pydantic_models import Message, Product, CartBotReq
 from cart.cart_chat_handler import answer_questions_for_cart
-def test_non_empty_cart():
-    products = get_user_cart_products(1)
-    assert len(products) > 0
+from fastapi.testclient import TestClient
+import sys
+import sys
+import pprint
+pprint.pprint(sys.path)
+from main import app
+
+
+client = TestClient(app)
+
+
+def test_greeting():
+    payload = {
+        "messages": [
+            {
+                "role": "user",
+                "content": "hi"
+            }
+        ],
+        "products": []
+    }
+    response = client.post("/cart-message/",  json=payload)
+    print(response)
+    assert 'Hello!' in response.json()['response']['bot']
+
 
 def test_cart_response():
     m1 = Message(role="user",content = "does jeans suit my shirt?")
