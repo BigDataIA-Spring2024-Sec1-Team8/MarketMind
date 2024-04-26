@@ -1,5 +1,5 @@
 from snowflake.snowflake_wrapper import  retrieve_last_5_user_searches,retrieve_user_activities,retrieve_user_gender
-from genai.genai_handler import call_gemini_api
+from genai.genai_handler import call_openai_api
 from genai.embedding_handler import retrieve_products
 from snowflake.snowflake_wrapper import get_product_data
 import json
@@ -30,7 +30,7 @@ def send_recommendations(user_id):
     }
     """
     
-    response_message = call_gemini_api(prompt)
+    response_message = call_openai_api(prompt)
     try:
         response = {}
         start_index = response_message.index('{')

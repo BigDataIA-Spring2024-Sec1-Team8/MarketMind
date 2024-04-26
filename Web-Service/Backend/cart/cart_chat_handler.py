@@ -1,6 +1,6 @@
 from helpers.helper_functions import is_greeting
 from prompt.prompt_handler import create_user_query_answering_cart
-from genai.genai_handler import call_gemini_api,call_openai_api
+from genai.genai_handler import call_openai_api
 import json
 from cart.user_cart_handler import get_review_summaries
 def condense_messages(messages):
