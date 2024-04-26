@@ -6,7 +6,7 @@ MarketMind is an advanced analytics platform designed to transform e-commerce wi
 ## Project Resources
 [![Google Codelabs](https://img.shields.io/badge/-Google%20Codelabs-blue?style=for-the-badge)](https://codelabs-preview.appspot.com/?file_id=1pRm59ElUkxoqgvT62tF9CEygV7fJEHx4JsTQossEerM#0)
 [![Demo Video](https://img.shields.io/badge/-Demo%20Video-red?style=for-the-badge)](xxxx)
-[![Application](https://img.shields.io/badge/-Demo%20Video-red?style=for-the-badge)](xxxx)
+[![Application](https://img.shields.io/badge/-Application-yellow?style=for-the-badge)](xxxx)
 
 ## Tech Stack
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
