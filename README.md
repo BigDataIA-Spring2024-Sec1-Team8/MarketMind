@@ -1,4 +1,4 @@
-# Final Project Proposal
+# MarketMind
 
 ## Project Overview
 MarketMind is an advanced analytics platform designed to transform e-commerce with real-time data insights, personalized product recommendations, and consumer sentiment analysis. Powered by AI and machine learning, MarketMind offers a conversational interface for intuitive user queries, allowing businesses to understand market trends and customer behavior better. The platform's cloud-based structure ensures scalability and reliability, enabling businesses of all sizes to access powerful big data tools. By integrating user chat histories and analyzing customer reviews, MarketMind delivers a tailored shopping experience and actionable insights, empowering businesses to make informed decisions and enhance customer satisfaction.
