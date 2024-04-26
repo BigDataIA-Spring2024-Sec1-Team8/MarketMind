@@ -1,6 +1,4 @@
 from cart.user_cart_handler import get_user_cart_products
-from models.pydantic_models import Message, Product,CartBotReq
-from cart.cart_chat_handler import answer_questions_for_cart
 def test_non_empty_cart():
     products = get_user_cart_products(1)
     assert len(products) > 0
