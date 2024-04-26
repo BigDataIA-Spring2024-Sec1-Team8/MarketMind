@@ -15,6 +15,10 @@ from tasks.reviews.upload_reviews import upload_reviews_to_snowflake_function, u
 from tasks.reviews.update_ratings import update_ratings_product
 from tasks.reviews.upload_reviews import upload_ratings_reviews_to_snowflake_function
 from tasks.image.embed_images import embed_image_info
+
+from tasks.extract_products_and_reviews.extract_products import extract
+from tasks.extract_products_and_reviews.extract_reviews import fetch_reviews
+
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -23,6 +27,15 @@ default_args = {
     'email_on_retry': False,
     'retries': 1,
 }
+
+extract_dag = DAG(
+    'Extract',
+    default_args=default_args,
+    description='Extract products/reviews',
+    start_date=datetime(2024, 3, 19),
+    schedule_interval=None,
+    catchup=False
+)
 
 products_dag = DAG(
     'Products',
@@ -140,7 +153,22 @@ embed_image_info_task =  PythonOperator(
         python_callable=embed_image_info,
         dag=images_dag
     )
+
+extract_products =  PythonOperator(
+        task_id='extract_products_from_datasource',
+        python_callable=extract,
+        dag=extract_dag
+    )
+
+extract_reviews =  PythonOperator(
+        task_id='extract_reviews_from_datasource',
+        python_callable=fetch_reviews,
+        dag=extract_dag
+    )
+
 embed_image_info_task
+
+extract_products >> extract_reviews
 
 clean_product_info_task >> validate_data_task >> upload_products_snowflake_task
 clean_product_info_task >> summarise_product_info_task >> upload_products_task
