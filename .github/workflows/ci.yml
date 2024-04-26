@@ -66,6 +66,6 @@ jobs:
             cd /home/ec2-user/final-web-service-private
             git pull
             docker-compose down
-            docker-compose run
+            docker-compose up
               '
           
