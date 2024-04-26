@@ -4,9 +4,9 @@
 MarketMind is an advanced analytics platform designed to transform e-commerce with real-time data insights, personalized product recommendations, and consumer sentiment analysis. Powered by AI and machine learning, MarketMind offers a conversational interface for intuitive user queries, allowing businesses to understand market trends and customer behavior better. The platform's cloud-based structure ensures scalability and reliability, enabling businesses of all sizes to access powerful big data tools. By integrating user chat histories and analyzing customer reviews, MarketMind delivers a tailored shopping experience and actionable insights, empowering businesses to make informed decisions and enhance customer satisfaction.
 
 ## Project Resources
-[![Google Codelabs](https://img.shields.io/badge/-Google%20Codelabs-blue?style=for-the-badge)](https://codelabs-preview.appspot.com/?file_id=1pRm59ElUkxoqgvT62tF9CEygV7fJEHx4JsTQossEerM#0)
-[![Demo Video](https://img.shields.io/badge/-Demo%20Video-red?style=for-the-badge)](xxxx)
-[![Application](https://img.shields.io/badge/-Application-yellow?style=for-the-badge)](xxxx)
+[![Google Codelabs](https://img.shields.io/badge/-Google%20Codelabs-blue?style=for-the-badge)](https://codelabs-preview.appspot.com/?file_id=1jgCXONoiZ2SUPDW-pyuGT_dZhfNW3Q1h9VHunhrVhK4#0)
+[![Demo Video](https://img.shields.io/badge/-Demo%20Video-red?style=for-the-badge)]()
+[![Application](https://img.shields.io/badge/-Application-yellow?style=for-the-badge)](http://52.14.6.11:8501/)
 
 ## Tech Stack
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
