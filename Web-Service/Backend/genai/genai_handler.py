@@ -1,4 +1,3 @@
-import google.generativeai as genai
 from openai import OpenAI
 import os
 # genai.configure(api_key=os.getenv('gemini_key'))
