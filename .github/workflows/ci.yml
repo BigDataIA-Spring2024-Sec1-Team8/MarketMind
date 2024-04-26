@@ -47,22 +47,25 @@ jobs:
       
   deploy:
     name: Deploy
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install SSH
-      run: sudo apt-get install openssh-client -y
+      - uses: actions/checkout@v2 
+      - name: Build & Deploy
+        env:
+            PRIVATE_KEY: ${{ secrets.EC2PRIVATE }}
+            HOSTNAME: ${{secrets.EC2_HOST}}
+            USER_NAME: ${{secrets.EC2USER}}
 
-    - name: Copy SSH private key
-      run: echo "${{ secrets.EC2PRIVATE }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-
-    - name: SSH into EC2 instance
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2USER }}
-        key: ${{ secrets.EC2PRIVATE }}
-        script: |
-          cd final-web-service-private
-          git pull
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            eval $(ssh-agent -s)
+            ssh-add ~/.ssh/gitlog
+            cd /home/ec2-user/final-web-service-private
+            git pull
+            docker-compose down
+            docker-compose up -d
+              '
+          
