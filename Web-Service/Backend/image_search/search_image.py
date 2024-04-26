@@ -60,10 +60,9 @@ def handle_image(file_path):
     
     return response.choices[0].message.content
 def retrieve_products_by_image(file):
-    embedding = generate_image_embedding(file, '')
-    response = handle_image(file)
-    print(embedding, file)
     try:
+       embedding = generate_image_embedding(file, '')
+       response = handle_image(file)
        start_index = response.index('{')
        end_index = response.rindex('}')
        response = json.loads(response[start_index:end_index+1])
